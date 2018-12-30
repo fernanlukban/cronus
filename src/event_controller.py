@@ -1,4 +1,5 @@
-from event import Event 
+from db_shared import DBController
+from event import Event
 
-class EventController:
+class EventController(DBController):
     pass

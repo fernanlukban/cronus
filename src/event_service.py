@@ -4,8 +4,9 @@ from flask import (
     current_app,
     render_template
 )
+from db_shared import DBNotFoundError
 
-event_service_page = Blueprint('event_service_page', __name__, template_folder='templates')
+event_service_page = Blueprint("event_service_page", __name__, template_folder="templates")
 
 @event_service_page.record
 def setup_(state):
