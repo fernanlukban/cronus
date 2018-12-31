@@ -9,6 +9,7 @@ class UserController(DBController):
         return User.get(user_id)
 
     @classmethod
-    def register(cls, user):
+    def register(cls, email, password):
+        user = User.create(email, password)
         cls.db.session.add(user)
         cls.db.session.commit()
