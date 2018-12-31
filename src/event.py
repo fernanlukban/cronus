@@ -1,4 +1,7 @@
 from db_shared import db
 
 class Event(db.Model):
-    pass
+    __tablename__ = "event"
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String)

@@ -3,6 +3,6 @@ from user import User
 
 class UserController(DBController):
 
-    @classmethod
+    @staticmethod
     def get_by_id(user_id):
         return User.get(user_id)
