@@ -1,3 +1,4 @@
+from auth_controller import AuthController
 from auth_shared import login_manager
 from db_shared import DBNotFoundError
 from flask import (
@@ -10,10 +11,11 @@ from flask import (
     request,
     url_for
 )
-from flask_login import login_user, login_required
+from flask_login import login_required
 from form_login import FormLogin
 from form_register import FormRegister
 from user_controller import UserController
+from sqlalchemy.exc import IntegrityError
 
 auth_service_page = Blueprint("auth_service_page", __name__, template_folder="../templates")
 
@@ -46,8 +48,7 @@ def login():
         if not user.check_password(password):
             print("Invalid password!")
             flash("Invalid password!")
-        else:
-            login_user(user)
+        if AuthController.login(user):
             flash("Login successful")
         print(user, password)       
         return redirect(url_for('auth_service_page.logged_in'))
@@ -59,11 +60,22 @@ def register():
     if form_register.validate_on_submit():
         email = form_register.email.data
         password = form_register.password.data
-        UserController.register(email, password)
+        try:
+            new_user = UserController.create(email, password)
+            AuthController.register(new_user)
+        except IntegrityError:
+            return "Already signed up!"
         flash("Signed up!")
 
         next = request.args.get('next')
         if not is_safe_url(next):
             return abort(400)
         return redirect(url_for("auth_service_page.register"))
-    return render_template('form_register.html', form_register=form_register)
+    else:
+        return render_template('form_register.html', form_register=form_register)
+
+@auth_service_page.route('/logout')
+@login_required
+def logout():
+    AuthController.logout()
+    return redirect(url_for("auth_service_page.login"))

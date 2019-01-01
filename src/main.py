@@ -6,12 +6,15 @@ from flask import Flask
 from auth_service import auth_service_page
 
 app = Flask(__name__)
+
+app.config["SECRET_KEY"] = "swaglord420"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://cronus:cronus@localhost/cronus'
+# To suppress a deprecated setting warning
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db.init_app(app)
 login_manager.init_app(app)
 
-app.config["event_controller"] = EventController()
-app.config["SECRET_KEY"] = "swaglord420"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://cronus:cronus@localhost/cronus'
 app.register_blueprint(event_service_page)
 
 app.register_blueprint(auth_service_page)

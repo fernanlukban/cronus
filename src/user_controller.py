@@ -9,7 +9,5 @@ class UserController(DBController):
         return User.query.filter_by(email=email).first()
 
     @classmethod
-    def register(cls, email, password):
-        user = User.create(email, password)
-        cls.db.session.add(user)
-        cls.db.session.commit()
+    def create(cls, email, password):
+        return User.create(email, password)
