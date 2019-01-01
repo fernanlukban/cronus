@@ -5,8 +5,8 @@ class UserController(DBController):
     db = db
 
     @staticmethod
-    def get_by_id(user_id):
-        return User.get(user_id)
+    def get_by_email(email):
+        return User.query.filter_by(email=email).first()
 
     @classmethod
     def register(cls, email, password):

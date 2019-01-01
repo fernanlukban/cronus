@@ -6,11 +6,14 @@ from werkzeug.security import (
 )
 
 class User(UserMixin, db.Model):
-    __tablename__ = "user"
+    __tablename__ = "user_"
 
     email = db.Column(db.String, primary_key=True)
     password = db.Column(db.String)
     authenticated = db.Column(db.Boolean, default=False)
+
+    def get_id(self):
+        return self.email
 
     def check_password(self, password):
         return check_password_hash(self.password, password)

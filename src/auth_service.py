@@ -10,6 +10,7 @@ from flask import (
     request,
     url_for
 )
+from flask_login import login_user, login_required
 from form_login import FormLogin
 from form_register import FormRegister
 from user_controller import UserController
@@ -24,12 +25,32 @@ def is_safe_url(target):
     return True
 
 @login_manager.user_loader
-def user_loader(user_id):
-    return UserController.get_by_id(user_id)
+def user_loader(email):
+    return UserController.get_by_email(email)
+
+@auth_service_page.route("/logged_in")
+@login_required
+def logged_in():
+    return "Logged in!"
 
 @auth_service_page.route("/login", methods=["GET", "POST"])
 def login():
     form_login = FormLogin()
+    if form_login.validate_on_submit():
+        email = form_login.email.data
+        password = form_login.password.data
+        user = UserController.get_by_email(email)
+        if user is None:
+            print("No user found!")
+            flash("No user found!")
+        if not user.check_password(password):
+            print("Invalid password!")
+            flash("Invalid password!")
+        else:
+            login_user(user)
+            flash("Login successful")
+        print(user, password)       
+        return redirect(url_for('auth_service_page.logged_in'))
     return render_template('form_login.html', form=form_login)
 
 @auth_service_page.route("/register", methods=["GET", "POST"])
