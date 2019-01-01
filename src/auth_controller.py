@@ -2,12 +2,10 @@ from db_shared import db, DBController
 from flask_login import login_user, logout_user
 
 class AuthController(DBController):
-    db = db
-
-    @classmethod
-    def register(cls, user):
-        cls.db.session.add(user)
-        cls.db.session.commit()
+    @staticmethod
+    def register(user):
+        DBController.db.session.add(user)
+        DBController.db.session.commit()
 
     @staticmethod
     def login(user):

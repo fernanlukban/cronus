@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 class DBController:
-    pass
+    db = db
 
 class DBNotFoundError(Exception):
     pass

@@ -60,8 +60,8 @@ def register():
     if form_register.validate_on_submit():
         email = form_register.email.data
         password = form_register.password.data
+        new_user = UserController.create(email, password)
         try:
-            new_user = UserController.create(email, password)
             AuthController.register(new_user)
         except IntegrityError:
             return "Already signed up!"
