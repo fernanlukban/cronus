@@ -52,7 +52,7 @@ def login():
             flash("Login successful")
         print(user, password)       
         return redirect(url_for('auth_service_page.logged_in'))
-    return render_template('form_login.html', form=form_login)
+    return render_template('form/login.html', form=form_login)
 
 @auth_service_page.route("/register", methods=["GET", "POST"])
 def register():
@@ -72,7 +72,7 @@ def register():
             return abort(400)
         return redirect(url_for("auth_service_page.register"))
     else:
-        return render_template('form_register.html', form_register=form_register)
+        return render_template('form/register.html', form_register=form_register)
 
 @auth_service_page.route('/logout')
 @login_required
