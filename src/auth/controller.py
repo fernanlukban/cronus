@@ -1,4 +1,4 @@
-from db_shared import db, DBController
+from ..shared.db import db, DBController
 from flask_login import login_user, logout_user
 
 class AuthController(DBController):

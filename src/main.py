@@ -1,9 +1,9 @@
-from auth_shared import login_manager
-from db_shared import db
-from event_controller import EventController
-from event_service import event_service_page
+from .shared.auth import login_manager
+from .shared.db import db
+from .event.controller import EventController
+from .event.service import event_service_page
 from flask import Flask
-from auth_service import auth_service_page
+from .auth.service import auth_service_page
 
 app = Flask(__name__)
 

@@ -1,6 +1,6 @@
-from auth_controller import AuthController
-from auth_shared import login_manager
-from db_shared import DBNotFoundError
+from .controller import AuthController
+from ..shared.auth import login_manager
+from ..shared.db import DBNotFoundError
 from flask import (
     abort,
     Blueprint,
@@ -12,9 +12,9 @@ from flask import (
     url_for
 )
 from flask_login import login_required
-from form_login import FormLogin
-from form_register import FormRegister
-from user_controller import UserController
+from ..form.login import FormLogin
+from ..form.register import FormRegister
+from ..user.controller import UserController
 from sqlalchemy.exc import IntegrityError
 
 auth_service_page = Blueprint("auth_service_page", __name__, template_folder="../templates")

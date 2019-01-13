@@ -1,4 +1,4 @@
-from db_shared import db
+from ..shared.db import db
 
 class Event(db.Model):
     __tablename__ = "event"

@@ -1,5 +1,5 @@
-from db_shared import db, DBController
-from user import User
+from ..shared.db import db, DBController
+from .user import User
 
 class UserController(DBController):
     @staticmethod
