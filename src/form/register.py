@@ -1,7 +1,4 @@
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField
-from wtforms.validators import DataRequired
+from .base import FormBase
 
-class FormRegister(FlaskForm):
-    email = StringField('email', validators=[DataRequired()])
-    password = PasswordField('password', validators=[DataRequired()])
+class FormRegister(FormBase):
+    pass
